@@ -51,8 +51,7 @@ int main(int argc, char *argv[]){
     char request[512];
     char *post_data;
 
-    if(strcmp(argv[2], "GET") != 0 && strcmp(argv[2], "POST") != 0){exit(1);}
-    sprintf(request,
+  sprintf(request,
         "%s http://%s/%s HTTP/1.1\r\n"  
         "Host: %s\r\n"
         "\r\n",
