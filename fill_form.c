@@ -12,6 +12,8 @@
 void send_request(int client, SSL *ssl, int use_https, const char *request, char *response, size_t response_size) {
     memset(response, 0, response_size); // Reset the response buffer
 
+    printf("\n=============================================================\n=============================================================\n\n");
+
     if (use_https) {
         if (SSL_write(ssl, request, strlen(request)) < 0) {
             perror("SSL_write failed");
@@ -161,6 +163,7 @@ int main(int argc, char *argv[]){
         line = strtok(NULL, "\r\n");
     }
 
+    printf("\n");
     printf("Response from the server: %s\n", response);
     printf("CSRF Token: %s\n", csrfToken);
     printf("Cookies: %s\n", cookies);
@@ -168,10 +171,10 @@ int main(int argc, char *argv[]){
     free(csrfToken);
     free(cookies);
 
-    char *params = "param1=value1&param2=value2";
+    char *params = "session_code=bqtFNF7OTVACw4OtFoRM1_I387nrA8fYgN5aYtAGkMw&execution=1ab38987-be1b-4635-be27-dbee5bab9a33&client_id=web_app&tab_id=yLtF_htRYs0";
 
     sprintf(request,
-        "POST /%s HTTP/1.1\r\n"  
+        "POST /%s/auth/realms/atlas/login-actions/registration HTTP/1.1\r\n"  
         "Host: %s\r\n"
         "Content-Type: application/x-www-form-urlencoded\r\n"
         "Content-Length: %lu\r\n"
